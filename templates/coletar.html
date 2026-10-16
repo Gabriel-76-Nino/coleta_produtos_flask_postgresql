@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<section class="painel">
+  <a class="voltar" href="{{ url_for('index') }}">← Voltar para a lista</a>
+  <p class="sobretitulo">ETAPA 2</p>
+  <h1>Registrar datas</h1>
+  <div class="produto-destaque">
+    <span class="rotulo">CÓDIGO INTERNO</span><strong class="codigo">{{ produto.codigo_interno }}</strong>
+    <span class="rotulo">DESCRIÇÃO</span><strong>{{ produto.descricao }}</strong>
+  </div>
+  <form action="{{ url_for('salvar') }}" method="post" class="form-datas">
+    <input type="hidden" name="codigo_interno" value="{{ produto.codigo_interno }}">
+    <label for="fabricacao_coletada">Data de fabricação coletada</label>
+    <input id="fabricacao_coletada" name="fabricacao_coletada" type="date" required autofocus value="{{ fabricacao_digitada|default('') }}">
+    <label for="validade_coletada">Data de validade coletada</label>
+    <input id="validade_coletada" name="validade_coletada" type="date" required value="{{ validade_digitada|default('') }}">
+    <button class="salvar" type="submit">Salvar coleta</button>
+  </form>
+  <p class="ajuda">Confira as duas datas antes de salvar. A gravação será feita no PostgreSQL.</p>
+</section>
+<script>
+  // Seleciona o primeiro campo ao abrir a tela.
+  document.getElementById('fabricacao_coletada').focus();
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coleta de produtos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header><div class="topo"><span class="marca">CP</span><div><strong>Coleta de produtos</strong><small>Conferência de fabricação e validade</small></div></div></header>
+  <main>
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% if mensagens %}
+        {% for categoria, mensagem in mensagens %}
+          <div class="alerta {{ categoria }}" role="status">{{ mensagem }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block conteudo %}{% endblock %}
+  </main>
+  <footer>Coleta de produtos · PostgreSQL</footer>
+</body>
+</html>

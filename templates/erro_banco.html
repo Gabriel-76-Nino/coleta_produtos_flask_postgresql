@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<section class="painel">
+  <h1>Não foi possível carregar os produtos</h1>
+  <p>Verifique se o PostgreSQL está ativo e se a variável DATABASE_URL está correta.</p>
+  <p>Confira também se as tabelas <code>dados</code> e <code>gtins</code> existem e têm os nomes de colunas descritos no README.</p>
+</section>
+{% endblock %}

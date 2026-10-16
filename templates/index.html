@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<section class="painel">
+  <div class="titulo-linha">
+    <div><p class="sobretitulo">ETAPA 1</p><h1>Localizar produto</h1><p class="muted">Leia o código de barras ou digite o código interno.</p></div>
+    <div class="contador"><strong>{{ produtos|length }}</strong><span>pendentes</span></div>
+  </div>
+  <form class="busca" action="{{ url_for('buscar') }}" method="post">
+    <label for="codigo">Código de barras ou código interno</label>
+    <div class="campo-busca"><input id="codigo" name="codigo" type="text" autocomplete="off" autofocus required placeholder="Aguardando leitura..." inputmode="none"><button type="submit">Pesquisar</button></div>
+    <p class="ajuda">O leitor pode enviar o código e pressionar Enter automaticamente.</p>
+  </form>
+</section>
+
+<section class="painel lista-painel">
+  <div class="titulo-linha"><div><p class="sobretitulo">PENDÊNCIAS</p><h2>Produtos para coletar</h2></div></div>
+  {% if produtos %}
+  <div class="tabela-wrap"><table>
+    <thead><tr><th>Código interno</th><th>Descrição</th></tr></thead>
+    <tbody>{% for p in produtos %}
+      <tr><td class="codigo">{{ p.codigo_interno }}</td><td>{{ p.descricao }}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% else %}
+    <div class="vazio"><span class="check">✓</span><strong>Nenhuma pendência</strong><p>Todos os produtos estão coletados.</p></div>
+  {% endif %}
+</section>
+<script>
+  // Mantém o campo pronto para a próxima leitura ao retornar à tela inicial.
+  window.addEventListener('pageshow', () => {
+    const campo = document.getElementById('codigo');
+    if (campo) { campo.value = ''; campo.focus(); }
+  });
+</script>
+{% endblock %}
